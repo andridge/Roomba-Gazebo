@@ -1,7 +1,5 @@
 # Gazebo
 ![a1qagmLC jpg-small](https://github.com/andridge/Gazebo/assets/46260701/7c3987d9-cc74-41a7-a0c5-21a88bd51927)
-# Gazebo
-![Image](https://github.com/andridge/Gazebo/raw/master/assets/46260701/7c3987d9-cc74-41a7-a0c5-21a88bd51927.jpg)
 
 ## Readme File
 
