@@ -1,0 +1,30 @@
+<launch>
+  <!-- Launch Gazebo -->
+  <arg name="world" default="/home/andre/Desktop/TaskB/src/com760_Suhael_Ahmed/src/world/com760b00856266.world"/>
+  <arg name="urdf_file" default="/home/andre/Desktop/TaskB/src/com760_Suhael_Ahmed/src/urdf/com760b00856266Bot.xacro"/>
+  <arg name="model_name" default="b00856266bot"/>
+
+  <node name="gazebo" pkg="gazebo_ros" type="gazebo" args="--verbose $(arg world)"/>
+
+  <!-- Spawn URDF model -->
+  <node name="spawn_urdf_model" pkg="gazebo_ros" type="spawn_model" output="screen"
+        args="-urdf -param robot_description -model $(arg model_name)" />
+
+  <!-- Publish laser scan topic -->
+  <param name="robot_description" textfile="$(arg urdf_file)" />
+
+  <node name="laser_publisher" pkg="robot_state_publisher" type="robot_state_publisher" output="screen" />
+
+  <!-- Set robot command topic -->
+  <node name="cmd_vel_mux" pkg="topic_tools" type="mux" output="screen">
+    <remap from="cmd_vel_mux/input/teleop" to="/$(arg model_name)/cmd_vel"/>
+  </node>
+
+  <!-- Include scripts -->
+  <node name="follow_wall" pkg="com760_Suhael_Ahmed" type="FollowWall.py" output="screen"/>
+  <node name="go_to_point" pkg="com760_Suhael_Ahmed" type="GoToPoint.py" output="screen"/>
+  <node name="controller" pkg="com760_Suhael_Ahmed" type="controller.py" output="screen"/>
+  <node name="bug0" pkg="com760_Suhael_Ahmed" type="Bug0.py" output="screen"/>
+  <node name="bug1" pkg="com760_Suhael_Ahmed" type="Bug1.py" output="screen"/>
+  <node name="bug2" pkg="com760_Suhael_Ahmed" type="Bug2.py" output="screen"/>
+</launch> 

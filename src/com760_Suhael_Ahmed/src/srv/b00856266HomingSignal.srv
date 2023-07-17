@@ -1,0 +1,4 @@
+bool flag  # Enables charging and disables service
+float32 des_x  # X-coordinate for homing signal
+float32 des_y  # Y-coordinate for homing signal
+string message  # Optional message

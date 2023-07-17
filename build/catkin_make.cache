@@ -1,0 +1,2 @@
+com760_Suhael_Ahmed
+-DCATKIN_DEVEL_PREFIX=/home/andre/Desktop/TaskB/devel -DCMAKE_INSTALL_PREFIX=/home/andre/Desktop/TaskB/install -G Unix Makefiles

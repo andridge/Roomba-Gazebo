@@ -1,0 +1,106 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="com760BotSAP">
+
+  <material name="black">
+    <color rgba="0.0 0.0 0.0 1.0"/>
+  </material>
+  <material name="blue">
+    <color rgba="0.203125 0.23828125 0.28515625 1.0"/>
+  </material>
+  <material name="green">
+    <color rgba="0.0 0.8 0.0 1.0"/>
+  </material>
+  <material name="grey">
+    <color rgba="0.2 0.2 0.2 1.0"/>
+  </material>
+  <material name="orange">
+    <color rgba="1.0 0.423529411765 0.0392156862745 1.0"/>
+  </material>
+  <material name="brown">
+    <color rgba="0.870588235294 0.811764705882 0.764705882353 1.0"/>
+  </material>
+  <material name="red">
+    <color rgba="0.80078125 0.12890625 0.1328125 1.0"/>
+  </material>
+  <material name="white">
+    <color rgba="1.0 1.0 1.0 1.0"/>
+  </material>
+
+  <!-- all the gazebo tags -->
+
+  <gazebo reference="base_link_chassis">
+    <material>Gazebo/Orange</material>
+  </gazebo>
+  <gazebo reference="left_wheel">
+    <material>Gazebo/Blue</material>
+  </gazebo>
+  <gazebo reference="right_wheel">
+    <material>Gazebo/Blue</material>
+  </gazebo>
+
+  <gazebo>
+    <plugin filename="libgazebo_ros_diff_drive.so" name="differential_drive_controller">
+      <alwaysOn>true</alwaysOn>
+      <updateRate>20</updateRate>
+      <leftJoint>left_wheel_hinge</leftJoint>
+      <rightJoint>right_wheel_hinge</rightJoint>
+      <wheelSeparation>0.4</wheelSeparation>
+      <wheelDiameter>0.2</wheelDiameter>
+      <torque>0.1</torque>
+      <commandTopic>com760Bot/cmd_vel</commandTopic>
+      <odometryTopic>odom</odometryTopic>
+      <odometryFrame>odom</odometryFrame>
+      <robotBaseFrame>base_link_chassis</robotBaseFrame>
+      <legacyMode>true</legacyMode>
+    </plugin>
+  </gazebo>
+
+  <xacro:macro name="create_link" params="link_name origin_rpy origin_xyz geometry">
+    <link name="${link_name}">
+      <inertial>
+        <mass value="0.2"/>
+        <origin rpy="${origin_rpy}" xyz="${origin_xyz}"/>
+        <inertia ixx="0.00052666666" ixy="0" ixz="0" iyy="0.00052666666" iyz="0" izz="0.001"/>
+      </inertial>
+      <collision>
+        <origin rpy="${origin_rpy}" xyz="${origin_xyz}"/>
+        <geometry>${geometry}</geometry>
+      </collision>
+      <visual>
+        <origin rpy="${origin_rpy}" xyz="${origin_xyz}"/>
+        <geometry>${geometry}</geometry>
+        <material/>
+      </visual>
+    </link>
+  </xacro:macro>
+
+  <xacro:macro name="create_joint" params="joint_name type origin_rpy origin_xyz child_link parent_link axis_rpy axis_xyz">
+    <joint name="${joint_name}" type="${type}">
+      <origin rpy="${origin_rpy}" xyz="${origin_xyz}"/>
+      <child link="${child_link}"/>
+      <parent link="${parent_link}"/>
+      <axis rpy="${axis_rpy}" xyz="${axis_xyz}"/>
+      <limit effort="10000" velocity="1000"/>
+      <joint_properties damping="1.0" friction="1.0"/>
+    </joint>
+  </xacro:macro>
+
+  <xacro:property name="base_link_size" value="0.5 0.3 0.07"/>
+  <xacro:property name="caster_collision_origin_xyz" value="0.35 0 -0.05"/>
+  <xacro:property name="caster_visual_origin_xyz" value="0.2 0 -0.05"/>
+ 
+  <xacro:create_link link_name="base_link_chassis" origin_rpy="0 0 0" origin_xyz="0 0 0.1" geometry="<box size='${base_link_size}'/>"/>
+ 
+  <xacro:create_link link_name="caster_link" origin_rpy="0 0 0" origin_xyz="${caster_collision_origin_xyz}" geometry="<sphere radius='0.05'/>"/>
+
+  <xacro:create_link link_name="left_wheel" origin_rpy="0 1.5707 1.5707" origin_xyz="0 0 0" geometry="<cylinder length='0.04' radius='0.1'/>"/>
+
+  <xacro:create_link link_name="right_wheel" origin_rpy="0 1.5707 1.5707" origin_xyz="0 0 0" geometry="<cylinder length='0.04' radius='0.1'/>"/>
+
+  <xacro:create_joint joint_name="caster_joint" type="fixed" origin_rpy="0 0 0" origin_xyz="0 0 0" child_link="caster_link" parent_link="base_link_chassis" axis_rpy="0 0 0" axis_xyz="0 1 0"/>
+ 
+  <xacro:create_joint joint_name="left_wheel_hinge" type="continuous" origin_rpy="0 0 0" origin_xyz="-0.05 -0.15 0" child_link="left_wheel" parent_link="base_link_chassis" axis_rpy="0 0 0" axis_xyz="0 1 0"/>
+ 
+  <xacro:create_joint joint_name="right_wheel_hinge" type="continuous" origin_rpy="0 0 0" origin_xyz="-0.05 0.15 0" child_link="right_wheel" parent_link="base_link_chassis" axis_rpy="0 0 0" axis_xyz="0 1 0"/>
+
+</robot>

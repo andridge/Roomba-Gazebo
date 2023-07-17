@@ -1,0 +1,8 @@
+prefix=/home/andre/Desktop/TaskB/install
+
+Name: com760_Suhael_Ahmed
+Description: Description of com760_Suhael_Ahmed
+Version: 0.1.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 
