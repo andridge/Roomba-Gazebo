@@ -16,13 +16,24 @@ roscore
 4. Open another terminal.
 catkin_make
 source devel/setup.bash
-roslaunch com760_Suhael_Ahmed b00856266.launch
+
 chmod +x '/home/andre/Desktop/TaskB/src/com760_Suhael_Ahmed/src/scripts/controller.py'
 chmod +x '/home/andre/Desktop/TaskB/src/com760_Suhael_Ahmed/src/scripts/Bug2.py'
 chmod +x '/home/andre/Desktop/TaskB/src/com760_Suhael_Ahmed/src/scripts/Bug1.py'
 chmod +x '/home/andre/Desktop/TaskB/src/com760_Suhael_Ahmed/src/scripts/Bug0.py'
 chmod +x '/home/andre/Desktop/TaskB/src/com760_Suhael_Ahmed/src/scripts/GoToPoint.py'
 chmod +x '/home/andre/Desktop/TaskB/src/com760_Suhael_Ahmed/src/scripts/FollowWall.py'
+rostopic list
+/gazebo/link_states
+/gazebo/model_states
+/gazebo/parameter_descriptions
+/gazebo/parameter_updates
+/gazebo/set_link_state
+/gazebo/set_model_state
+roslaunch com760_Suhael_Ahmed b00856266.launch
+roslaunch com760_Suhael_Ahmed b00856266.launch algo:=BUG0
+roslaunch com760_Suhael_Ahmed b00856266.launch algo:=BUG1
+roslaunch com760_Suhael_Ahmed b00856266.launch algo:=BUG2
 Note: Please make sure to replace /home/andre/Desktop/TaskB with the actual path to your workspace directory.
 
 Contact Information
