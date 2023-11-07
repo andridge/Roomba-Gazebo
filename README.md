@@ -1,5 +1,6 @@
 # Gazebo
-![a1qagmLC jpg-small](https://github.com/andridge/Gazebo/assets/46260701/7c3987d9-cc74-41a7-a0c5-21a88bd51927)
+<img width="1552" alt="Screenshot 2023-11-07 at 11 30 52" src="https://github.com/andridge/Roomba-Gazebo/assets/46260701/6f347d02-73c2-42be-bae6-6f08d55d4b15">
+
 
 ## Readme File
 
